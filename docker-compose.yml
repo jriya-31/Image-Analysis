@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra_db
+    ports:
+      - "9042:9042"
+    volumes:
+      - ./init_db.cql:/docker-entrypoint-initdb.d/init_db.cql
+    environment:
+      - CASSANDRA_CLUSTER_NAME=OCRCluster

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Data Editor</title>
+</head>
+<body>
+    <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
+    <button onclick="logout()">Logout</button>
+
+    <h2>Want History?</h2>
+    <button onclick="getHistory()">History</button>
+    <pre id="historyOutput"></pre>
+
+    <h2>Upload Image for OCR</h2>
+    <input type="file" id="imageInput">
+    <button onclick="uploadImage()">Extract Text</button>
+
+    <h2>Extracted Data</h2>
+    <pre id="output"></pre>
+
+    <h3>Edit Extracted Data</h3>
+    <textarea id="editedData" rows="6" cols="50"></textarea>
+    <button onclick="saveData()">Save</button>
+
+    <script>
+        let username = localStorage.getItem("username");
+        
+        function uploadImage() {
+            let input = document.getElementById('imageInput');
+            if (!input.files.length) {
+                alert("Please select an image.");
+                return;
+            }
+        
+            let formData = new FormData();
+            formData.append('image', input.files[0]);
+        
+            fetch('/api/ocr/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("OCR Response:", data);  // Debugging log
+                if (data.error) {
+                    document.getElementById('output').innerText = data.error;
+                } else {
+                    let extractedText = Object.entries(data.documents)
+                        .map(([key, value]) => `${key}: ${value}`)
+                        .join("\n");
+        
+                    document.getElementById('output').innerText = extractedText;
+                    document.getElementById('editedData').value = extractedText;
+                }
+            })
+            .catch(error => alert("Error: " + error));
+        }
+
+        async function getHistory() {
+            const response = await fetch(`/api/get-data/${username}/`);
+            const data = await response.json();
+    
+            if (data.error) {
+                document.getElementById('historyOutput').innerText = data.error;
+            } else {
+                let historyText = data.map(entry => {
+                    return `Documents:\n${Object.entries(entry.documents)
+                        .map(([key, value]) => `${key}: ${value}`)
+                        .join("\n")}\nCreated At: ${entry.created_at}\n\n`;
+                }).join("\n");
+    
+                document.getElementById('historyOutput').innerText = historyText;
+            }
+        }
+        
+        document.addEventListener("DOMContentLoaded", async () => {
+            let username = localStorage.getItem("username");
+            if (!username) {
+                alert("No user logged in. Redirecting to login...");
+                window.location.href = "/auth/";
+            } else {
+                document.getElementById("usernameDisplay").innerText = username;
+    
+                const response = await fetch(`/api/get-data/${username}/`);
+                const data = await response.json();
+                
+                if (!data.error) {
+                    let extractedText = Object.entries(data.documents)
+                        .map(([key, value]) => `${key}: ${value}`)
+                        .join("\n");
+                    
+                    document.getElementById("output").innerText = extractedText;
+                    document.getElementById("editedData").value = extractedText;
+                }
+            }
+        });
+    
+        function saveData() {
+            if (!username) {
+                alert("No user logged in. Redirecting to login...");
+                window.location.href = "/auth/";
+                return;
+            }
+        
+            let editedText = document.getElementById('editedData').value;
+        
+            let documents = {};
+            editedText.split("\n").forEach(line => {
+                let parts = line.split(":");
+                if (parts.length === 2) {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    documents[key] = value;
+                }
+            });
+        
+            fetch('/api/save-data/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: username, documents: documents })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message || data.error))
+            .catch(error => alert("Error: " + error));
+        }
+
+        function logout() {
+            localStorage.removeItem("username");
+            window.location.href="/auth/";
+        }
+        
+    </script>
+</body>
+</html>

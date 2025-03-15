@@ -28,7 +28,7 @@ def extract_data(text, doc_type):
             extracted_data['Address'] = address_pattern.group(1)
 
     elif doc_type == "pan":
-        name_pattern = re.search(r"(?:Full\s*Name\s*[:\-]?\s*)(\w+\s*\w+)", text, re.IGNORECASE)
+        name_pattern = re.search(r"(Name\s*[:\-]?\s*)(\w+\s*\w+)", text, re.IGNORECASE)
         pan_pattern = re.search(r"([A-Z]{5}\d{4}[A-Z]{1})", text)
         dob_pattern = re.search(r"Date\s*of\s*Birth\s*[:\-\s]*([\d]{2}/[\d]{2}/[\d]{4})", text)
 
@@ -50,9 +50,9 @@ def extract_data(text, doc_type):
             extracted_data['Name'] = name_pattern.group(1)
         if license_pattern:
             extracted_data['License Number'] = license_pattern.group(1)
-        if dob_pattern:
+        if dl_number_pattern:
             extracted_data['DL No'] = dl_number_pattern.group(1)
-        if dob_pattern:
+        if expiry_date_pattern:
             extracted_data['Expiry Date'] = expiry_date_pattern.group(1)
         if dob_pattern:
             extracted_data['Date of Birth'] = dob_pattern.group(1)

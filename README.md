@@ -74,17 +74,7 @@ The **OCR processing flow** follows these steps:
 🚀 **Cloud Integration** – Save extracted text to Google Drive / AWS S3.  
 🚀 **AI-Based Text Correction** – Improve extracted text accuracy using deep learning.  
 
-## 📜 License
-This project is open-source under the MIT License. Feel free to modify and use it for research or commercial purposes.
-
-## 🤝 Contributing
-We welcome contributions! To contribute:  
-1️⃣ Fork the repository.  
-2️⃣ Create a new branch: feature-branch-name.  
-3️⃣ Commit your changes.  
-4️⃣ Push and submit a Pull Request.  
-
 ## 📬 Contact & Support
 For any queries, reach out to:  
-📧 **Email:** yourname@example.com  
-🐙 **GitHub:** YourGitHubProfile
+📧 **Email:** atharvakarle2717@gmail.com  
+🐙 **GitHub:** 

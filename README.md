@@ -46,9 +46,45 @@ The **OCR processing flow** follows these steps:
 
 ---
 
-## ⚙️ Installation & Setup  
+## 📌 Usage
+1️⃣ **Upload an Image** Open the web app and select a document image.
 
-### 1️⃣ Clone the Repository  
-```bash
-git clone https://github.com/jriya-31/Image-Analysis.git
-cd OCR-Document-Analysis
+2️⃣ **OCR Processing** The backend processes the image, extracts text, and displays it in an editable format.
+
+3️⃣ **Edit & Save** Users can make corrections and save/export the text in JSON/CSV format.
+
+## 🚀 Key Performance Indicators (KPIs)
+📌 **Image Reference:** `assets/kpi_chart.png`
+
+✔️ **OCR Accuracy** – Measures correct text extraction percentage.  
+✔️ **Processing Speed** – Average time taken per document.  
+✔️ **Error Rate** – Percentage of failed OCR attempts.  
+✔️ **User Engagement** – Frequency of text edits & corrections.  
+
+## ⚠️ Exception Handling
+📌 **Image Reference:** `assets/error_handling.png`
+
+✅ **Unreadable Text:** If OCR fails, prompts the user to upload a clearer image.  
+✅ **Duplicate Data:** Prevents redundant storage of the same extracted text.  
+✅ **Database Errors:** Logs failures and retries the operation.  
+
+## 📌 Future Enhancements
+🚀 **Multilingual OCR Support** – Process documents in multiple languages.  
+🚀 **Handwriting Recognition** – AI-based handwritten text detection.  
+🚀 **Cloud Integration** – Save extracted text to Google Drive / AWS S3.  
+🚀 **AI-Based Text Correction** – Improve extracted text accuracy using deep learning.  
+
+## 📜 License
+This project is open-source under the MIT License. Feel free to modify and use it for research or commercial purposes.
+
+## 🤝 Contributing
+We welcome contributions! To contribute:  
+1️⃣ Fork the repository.  
+2️⃣ Create a new branch: feature-branch-name.  
+3️⃣ Commit your changes.  
+4️⃣ Push and submit a Pull Request.  
+
+## 📬 Contact & Support
+For any queries, reach out to:  
+📧 **Email:** yourname@example.com  
+🐙 **GitHub:** YourGitHubProfile

@@ -17,11 +17,11 @@ The **OCR-Based Document Image Analysis System** automates text extraction from 
 ## 🛠️ Tech Stack  
 | Component    | Technology Used |
 |-------------|----------------|
-| **Frontend** | React.js (or HTML/CSS) |
-| **Backend**  | Django / Flask |
+| **Frontend** | HTML & CSS, JavaScript |
+| **Backend**  | Django |
 | **OCR Engine** | Tesseract OCR, OpenCV |
 | **Database** | Cassandra (NoSQL) |
-| **Deployment** | Docker / AWS / Firebase (optional) |
+| **Deployment** | Docker |
 
 ---
 
